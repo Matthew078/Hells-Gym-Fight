@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 
 # Declare member variables here. Examples:
@@ -15,16 +15,17 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var velocity = Vector2.ZERO
+#func _process(delta):
+	
+
+
+func _physics_process(delta):
+	move()
+
+func move():
 	if Input.is_action_pressed("gym_bro_move_right"):
-		velocity.x += 1
+		apply_central_impulse(Vector2(4, 0))
 	if Input.is_action_pressed("gym_bro_move_left"):
-		velocity.x -= 1
+		apply_central_impulse(Vector2(-4, 0))
 		
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		
-	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	
