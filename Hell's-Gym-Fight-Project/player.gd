@@ -31,7 +31,7 @@ func move():
 	else:
 		$AnimatedSprite.animation = 'standing'
 		$AnimatedSprite.play()
-	
+		
 		
 
 
