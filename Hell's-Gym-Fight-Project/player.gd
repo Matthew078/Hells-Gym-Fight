@@ -43,11 +43,8 @@ func _process(delta):
 	if Input.is_action_pressed("gym_bro_move_left"):
 		velocity.x -= 1
 
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		$AnimatedSprite.play()
-	else:
-		$AnimatedSprite.stop()
+	velocity = velocity.normalized() * speed
+	$AnimatedSprite.play()
 		
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
