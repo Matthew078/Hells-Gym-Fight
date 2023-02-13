@@ -25,7 +25,12 @@ func _physics_process(delta):
 func move():
 	if Input.is_action_pressed("gym_bro_move_right"):
 		apply_central_impulse(Vector2(4, 0))
-	if Input.is_action_pressed("gym_bro_move_left"):
+		
+	elif Input.is_action_pressed("gym_bro_move_left"):
 		apply_central_impulse(Vector2(-4, 0))
+	else:
+		$AnimatedSprite.animation = 'standing'
+		$AnimatedSprite.play()
+	
 		
 	
