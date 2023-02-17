@@ -3,8 +3,6 @@
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (2).png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=7]
-
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 3 )
@@ -41,14 +39,11 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 48.5, 90.5 )
 
+[sub_resource type="RectangleShape2D" id=7]
+
 [node name="player" type="RigidBody2D"]
 mode = 2
 script = ExtResource( 2 )
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2( 2.5, 2.5 )
-shape = SubResource( 7 )
-disabled = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -1 )
@@ -59,3 +54,8 @@ animation = "walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 2.5, 2.5 )
 shape = SubResource( 1 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2( 2.5, 2.5 )
+shape = SubResource( 7 )
+disabled = true
