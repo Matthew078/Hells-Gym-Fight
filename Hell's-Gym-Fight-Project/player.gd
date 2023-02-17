@@ -20,7 +20,8 @@ func _ready():
 
 
 func _physics_process(delta):
-	move()
+	#move()
+	pass
 
 func move():
 	if Input.is_action_pressed("gym_bro_move_right"):
