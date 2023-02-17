@@ -42,6 +42,14 @@ func _process(delta):
 		velocity.x += 1
 	if Input.is_action_pressed("gym_bro_move_left"):
 		velocity.x -= 1
+	
+	if Input.is_action_just_pressed("gym_bro_punch"):
+		print("punching")
+		$Hitbox.disabled = false
+		print($Hitbox.disabled)
+	else:
+		$Hitbox.disabled = true
+		print($Hitbox.disabled)
 
 	velocity = velocity.normalized() * speed
 	$AnimatedSprite.play()
