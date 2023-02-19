@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[gd_scene load_steps=2 format=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 519, 32.5 )
@@ -16,4 +14,3 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 510, 0 )
 scale = Vector2( 16.9375, 1 )
-texture = ExtResource( 1 )

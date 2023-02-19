@@ -14,6 +14,10 @@ config/name="Hell's-Gym-Fight-Project"
 run/main_scene="res://game.tscn"
 config/icon="res://icon.png"
 
+[global]
+
+size=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

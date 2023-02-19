@@ -7,7 +7,7 @@ extends RigidBody2D
 
 var screen_size 
 
-export var speed = 400
+export var speed = 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
