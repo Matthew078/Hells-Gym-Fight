@@ -7,6 +7,7 @@ extends RigidBody2D
 
 var screen_size 
 
+
 export var speed = 200
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +39,7 @@ func move():
 
 
 func _process(delta):
+	$AnimatedSprite.play()
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("gym_bro_move_right"):
 		velocity.x += 1
@@ -45,24 +47,28 @@ func _process(delta):
 		velocity.x -= 1
 	
 	if Input.is_action_just_pressed("gym_bro_punch"):
-		print("punching")
-		$Hitbox.disabled = false
-		print($Hitbox.disabled)
-	else:
-		$Hitbox.disabled = true
-		print($Hitbox.disabled)
+		$PunchTimer.start()
+		$PunchSound.play()
+
+		
+		
 
 	velocity = velocity.normalized() * speed
-	$AnimatedSprite.play()
+	
 		
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	
-	if velocity.x != 0:
-		$AnimatedSprite.animation = "walk"
-		$AnimatedSprite.flip_v = false
-		# See the note below about boolean assignment.
-		$AnimatedSprite.flip_h = velocity.x < 0
+	if not $PunchTimer.is_stopped():
+		$AnimatedSprite.animation = "punch"
 	else:
-		$AnimatedSprite.animation = "standing"
+		if velocity.x != 0:
+			$AnimatedSprite.animation = "walk"
+			$AnimatedSprite.flip_v = false
+			# See the note below about boolean assignment.
+			$AnimatedSprite.flip_h = velocity.x < 0
+		else:
+			$AnimatedSprite.animation = "standing"
+
+	
 
