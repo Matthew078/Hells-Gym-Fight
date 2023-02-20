@@ -7,8 +7,9 @@ extends RigidBody2D
 
 var screen_size 
 
-
+var punching = false
 export var speed = 200
+var punch_hitbox = preload("res://PunchHitBox.tscn").instance()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,8 +36,10 @@ func move():
 		$AnimatedSprite.play()
 		
 		
-
-
+func _punch():
+	$AnimatedSprite.animation = "punch"
+	$PunchHitBox.position = $PunchHitBoxPosition.global_position
+	
 
 func _process(delta):
 	$AnimatedSprite.play()
@@ -49,7 +52,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("gym_bro_punch"):
 		$PunchTimer.start()
 		$PunchSound.play()
-
+		
+		punching = true
 		
 		
 
@@ -59,9 +63,12 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	
+	
 	if not $PunchTimer.is_stopped():
-		$AnimatedSprite.animation = "punch"
+		self._punch()
 	else:
+		$PunchHitBox.position.y = -100
+		
 		if velocity.x != 0:
 			$AnimatedSprite.animation = "walk"
 			$AnimatedSprite.flip_v = false
@@ -69,6 +76,6 @@ func _process(delta):
 			$AnimatedSprite.flip_h = velocity.x < 0
 		else:
 			$AnimatedSprite.animation = "standing"
-
+	print($PunchHitBox.position)
 	
 
