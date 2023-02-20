@@ -38,7 +38,7 @@ func move():
 		
 func _punch():
 	$AnimatedSprite.animation = "punch"
-	$PunchHitBox.position = $PunchHitBoxPosition.global_position
+	punch_hitbox.position = $PunchHitBoxPosition.global_position
 	
 
 func _process(delta):
@@ -67,7 +67,7 @@ func _process(delta):
 	if not $PunchTimer.is_stopped():
 		self._punch()
 	else:
-		$PunchHitBox.position.y = -100
+		punch_hitbox.position.y = -100
 		
 		if velocity.x != 0:
 			$AnimatedSprite.animation = "walk"
@@ -76,6 +76,7 @@ func _process(delta):
 			$AnimatedSprite.flip_h = velocity.x < 0
 		else:
 			$AnimatedSprite.animation = "standing"
-	print($PunchHitBox.position)
+	print(punch_hitbox.position)
 	
+
 

@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 
 # Declare member variables here. Examples:
@@ -9,8 +9,7 @@ var screen_size
 
 
 export var speed = 200
-
-
+var gymbro_punch = preload('res://PunchHitBox.tscn').instance()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -45,3 +44,7 @@ func _process(delta):
 
 	
 
+
+
+func _on_demon_body_entered(body):
+	hide()

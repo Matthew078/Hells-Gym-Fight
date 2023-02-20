@@ -16,7 +16,6 @@ scale = Vector2( 1.5, 1 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 131, 503 )
-speed = 200
 
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
