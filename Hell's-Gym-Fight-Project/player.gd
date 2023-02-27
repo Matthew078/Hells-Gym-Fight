@@ -7,6 +7,11 @@ extends RigidBody2D
 
 var screen_size 
 
+var health = 100
+const punch_damage = 15
+const kick_damage = 25
+
+
 var punching = false
 export var speed = 200
 var punch_hitbox = preload("res://PunchHitBox.tscn").instance()
@@ -40,6 +45,9 @@ func _punch():
 	$AnimatedSprite.animation = "punch"
 	punch_hitbox.position = $PunchHitBoxPosition.global_position
 	
+func _kick():
+	$AnimatedSprite.animation = "kick"
+	
 
 func _process(delta):
 	$AnimatedSprite.play()
@@ -54,7 +62,9 @@ func _process(delta):
 		$PunchSound.play()
 		
 		punching = true
-		
+	if Input.is_action_just_pressed("gym_bro_kick"):
+		$KickTimer.start()
+		$KickSound.play()
 		
 
 	velocity = velocity.normalized() * speed
@@ -66,6 +76,8 @@ func _process(delta):
 	
 	if not $PunchTimer.is_stopped():
 		self._punch()
+	elif not $KickTimer.is_stopped():
+		self._kick()
 	else:
 		punch_hitbox.position.y = -100
 		

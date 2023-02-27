@@ -1,10 +1,21 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (4).png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (2).png" type="Texture" id=3]
 [ext_resource path="res://art/PlayerAnimationSheet.png" type="Texture" id=4]
 [ext_resource path="res://sound/punch2.wav" type="AudioStream" id=5]
+[ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (6).png" type="Texture" id=6]
+
+[sub_resource type="AtlasTexture" id=13]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 0, 1280, 640, 640 )
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 640, 1280, 640, 640 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
@@ -48,6 +59,11 @@ region = Rect2( 640, 640, 640, 640 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": false,
+"name": "kick",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "punch",
@@ -75,8 +91,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -1 )
 scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 6 )
-animation = "punch"
-frame = 1
+animation = "kick"
 speed_scale = 1.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -93,3 +108,9 @@ volume_db = 4.0
 
 [node name="PunchHitBoxPosition" type="Position2D" parent="."]
 position = Vector2( 29, -33 )
+
+[node name="KickTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="KickSound" type="AudioStreamPlayer2D" parent="."]
