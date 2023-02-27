@@ -8,8 +8,11 @@ extends RigidBody2D
 var screen_size 
 
 export var health = 100
+
+
 const punch_damage = 15
 const kick_damage = 25
+
 
 
 var punching = false
@@ -88,7 +91,7 @@ func _process(delta):
 			$AnimatedSprite.flip_h = velocity.x < 0
 		else:
 			$AnimatedSprite.animation = "standing"
-	print(punch_hitbox.position)
+	#print(punch_hitbox.position)
 	
 
 

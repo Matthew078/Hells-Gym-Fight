@@ -9,11 +9,12 @@ var screen_size
 
 
 export var speed = 200
+export var health = 100
 var gymbro_punch = preload('res://PunchHitBox.tscn').instance()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-
+	show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -42,9 +43,13 @@ func _process(delta):
 	else:
 		$AnimatedSprite.animation = "standing"
 
+	if health <= 0:
+		hide()
 	
 
 
 
 func _on_demon_body_entered(body):
-	hide()
+	#if body.name == "player":
+	health -= 10
+	print(health)	
