@@ -7,7 +7,7 @@ extends RigidBody2D
 
 var screen_size 
 
-var health = 100
+export var health = 100
 const punch_damage = 15
 const kick_damage = 25
 
