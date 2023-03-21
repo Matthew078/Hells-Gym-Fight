@@ -4,6 +4,7 @@
 extents = Vector2( 65.25, 24.375 )
 
 [node name="PunchHitBox" type="Area2D"]
+scale = Vector2( 2.16, 1 )
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
 position = Vector2( 1, 1 )

@@ -81,7 +81,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 48.5, 90.5 )
+extents = Vector2( 89.8111, 88.3067 )
 
 [node name="player" type="RigidBody2D"]
 position = Vector2( 2, -1 )
@@ -94,7 +94,8 @@ frames = SubResource( 6 )
 speed_scale = 1.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2.5, 2.5 )
+position = Vector2( -3, -36 )
+scale = Vector2( 0.838912, 1.47682 )
 shape = SubResource( 1 )
 
 [node name="PunchTimer" type="Timer" parent="."]
@@ -113,3 +114,4 @@ wait_time = 0.5
 one_shot = true
 
 [node name="KickSound" type="AudioStreamPlayer2D" parent="."]
+visible = false

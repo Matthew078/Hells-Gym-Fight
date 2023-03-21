@@ -11,6 +11,7 @@ var screen_size
 export var speed = 200
 export var health = 100
 var gymbro_punch = preload('res://PunchHitBox.tscn').instance()
+var HealthBar = preload("res://HUD.tscn").instance().get_child(0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -18,9 +19,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-
+func health_bar():
+	HealthBar.get_child(0).value = health
+	print(HealthBar.get_child(0).value)
 
 func _process(delta):
+	
+	self.health_bar()
 	$AnimatedSprite.play()
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("demon_move_right"):
