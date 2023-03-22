@@ -62,9 +62,6 @@ func _process(delta):
 		$PunchTimer.start()
 		$PunchSound.play()
 		punching = true
-		health -= 10
-		HealthBar._on_health_updated(health)
-		print(HealthBar.get_health())
 	if Input.is_action_just_pressed("gym_bro_kick"):
 		$KickTimer.start()
 		$KickSound.play()
@@ -76,8 +73,9 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	
-	
-	if not $PunchTimer.is_stopped():
+	if not $KnockedTimer.is_stopped():
+		$AnimatedSprite.animation = "out"
+	elif not $PunchTimer.is_stopped():
 		self._punch()
 	elif not $KickTimer.is_stopped():
 		self._kick()
@@ -92,7 +90,6 @@ func _process(delta):
 		else:
 			$AnimatedSprite.animation = "standing"
 	#print(punch_hitbox.position)
-	
 
 func _on_player_area_entered(area):
 	if area == demon_punch:
@@ -102,4 +99,5 @@ func _on_player_area_entered(area):
 
 func _on_player_body_entered(body):
 	self.health -= 10
-	print(health)
+	$KnockedTimer.start()
+	
