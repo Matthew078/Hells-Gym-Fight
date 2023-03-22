@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 
 # Declare member variables here. Examples:
@@ -7,7 +7,7 @@ extends RigidBody2D
 
 var screen_size 
 
-export var health = 100
+var health = 100
 
 
 const punch_damage = 15
@@ -17,8 +17,9 @@ const kick_damage = 25
 
 var punching = false
 export var speed = 200
+var demon_punch = preload('res://PunchHitBoxDemon.tscn').instance()
 var punch_hitbox = preload("res://PunchHitBox.tscn").instance()
-var HealthBar = preload("res://HUD.tscn").instance().get_child(1)
+var HealthBar = preload("res://HumanHealthBar.tscn").instance()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -31,21 +32,13 @@ func _ready():
 func health_bar():
 	HealthBar.get_child(0).value = health
 	
+	
 
 func _physics_process(delta):
 	#move()
 	pass
 
-func move():
-	if Input.is_action_pressed("gym_bro_move_right"):
-		apply_central_impulse(Vector2(4, 0))
-		
-	elif Input.is_action_pressed("gym_bro_move_left"):
-		apply_central_impulse(Vector2(-4, 0))
-	else:
-		$AnimatedSprite.animation = 'standing'
-		$AnimatedSprite.play()
-		
+
 		
 func _punch():
 	$AnimatedSprite.animation = "punch"
@@ -68,8 +61,10 @@ func _process(delta):
 	if Input.is_action_just_pressed("gym_bro_punch"):
 		$PunchTimer.start()
 		$PunchSound.play()
-		
 		punching = true
+		health -= 10
+		HealthBar._on_health_updated(health)
+		print(HealthBar.get_health())
 	if Input.is_action_just_pressed("gym_bro_kick"):
 		$KickTimer.start()
 		$KickSound.play()
@@ -99,4 +94,12 @@ func _process(delta):
 	#print(punch_hitbox.position)
 	
 
+func _on_player_area_entered(area):
+	if area == demon_punch:
+		self.health -= 10
+		print(health)
 
+
+func _on_player_body_entered(body):
+	self.health -= 10
+	print(health)

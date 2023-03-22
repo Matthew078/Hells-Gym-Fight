@@ -9,9 +9,10 @@ var screen_size
 
 
 export var speed = 200
-export var health = 100
-var gymbro_punch = preload('res://PunchHitBox.tscn').instance()
-var HealthBar = preload("res://HUD.tscn").instance().get_child(0)
+var health = 100
+var demon_punch = preload('res://PunchHitBoxDemon.tscn').instance()
+var punch_hitbox = preload("res://PunchHitBox.tscn").instance()
+var HealthBar = preload("res://DemonHealthBar.tscn").instance()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -19,13 +20,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-func health_bar():
-	HealthBar.get_child(0).value = health
-	print(HealthBar.get_child(0).value)
 
 func _process(delta):
 	
-	self.health_bar()
 	$AnimatedSprite.play()
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed("demon_move_right"):
@@ -35,6 +32,8 @@ func _process(delta):
 
 	velocity = velocity.normalized() * speed
 	
+	if Input.is_action_pressed("demon_punch"):
+		$PunchTimer.start()
 		
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
@@ -50,11 +49,25 @@ func _process(delta):
 
 	if health <= 0:
 		hide()
-	
+		
+	if not $PunchTimer.is_stopped():
+		self._punch()
+	else:
+		demon_punch.position.y = -100
 
+
+func _punch():
+	$AnimatedSprite.animation = "punch"
+	demon_punch.position = $PunchHitBoxDemon.global_position
+
+
+func _on_demon_area_entered(area):
+	print(area)
+	if area == punch_hitbox:
+		self.health -= 10
+		print(health)	
 
 
 func _on_demon_body_entered(body):
-	#if body.name == "player":
-	health -= 10
+	self.health -= 10
 	print(health)	
