@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (4).png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://art/PlayerAnimationSheet.png" type="Texture" id=4]
 [ext_resource path="res://sound/punch2.wav" type="AudioStream" id=5]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (6).png" type="Texture" id=6]
-[ext_resource path="res://PunchHitBox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://HumanHealthBar.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637-1.png (1).png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=13]
@@ -88,12 +88,23 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 89.8111, 88.3067 )
+extents = Vector2( 63.1771, 63.3117 )
+
+[sub_resource type="RectangleShape2D" id=15]
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 56.5, 89 )
 
 [node name="player" type="Area2D"]
 position = Vector2( 2, -1 )
-monitorable = false
 script = ExtResource( 2 )
+
+[node name="HumanHealthBar" parent="." instance=ExtResource( 7 )]
+margin_left = -60.0
+margin_top = -153.0
+margin_right = -60.0
+margin_bottom = -153.0
+rect_scale = Vector2( 0.507173, 0.660754 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -1 )
@@ -103,12 +114,12 @@ animation = "out"
 speed_scale = 1.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3, -36 )
+position = Vector2( 2, 2.5 )
 scale = Vector2( 0.838912, 1.47682 )
 shape = SubResource( 1 )
 
 [node name="PunchTimer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 0.5
 one_shot = true
 
 [node name="PunchSound" type="AudioStreamPlayer2D" parent="."]
@@ -119,17 +130,24 @@ volume_db = 4.0
 position = Vector2( 29, -33 )
 
 [node name="KickTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 one_shot = true
 
 [node name="KickSound" type="AudioStreamPlayer2D" parent="."]
-visible = false
-
-[node name="PunchHitBox" parent="." instance=ExtResource( 7 )]
-position = Vector2( 30, -33 )
 
 [node name="KnockedTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="area_entered" from="." to="." method="_on_player_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_player_body_entered"]
+[node name="PlayerHitBox" type="Area2D" parent="."]
+position = Vector2( 74, -15 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBox"]
+shape = SubResource( 15 )
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="PlayerHurtBox"]
+position = Vector2( 1.5, 2 )
+shape = SubResource( 16 )
+
+[connection signal="area_entered" from="PlayerHurtBox" to="." method="_on_PlayerHurtBox_area_entered"]

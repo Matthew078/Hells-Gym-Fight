@@ -6,7 +6,7 @@ extends Node2D
 # var b = "text"
 
 
-# Called when the node enters the scene tree for the first time.
+# Called when the node enters the sscene tree for the first time.
 func _ready():
 	
 	$Music.play()
