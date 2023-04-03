@@ -61,7 +61,6 @@ func _process(delta):
 		if Input.is_action_just_pressed("gym_bro_punch"):
 			$PunchTimer.start()
 			$PunchSound.play()
-			punching = true
 		if Input.is_action_just_pressed("gym_bro_kick"):
 			$KickTimer.start()
 			$KickSound.play()

@@ -108,7 +108,6 @@ animation = "out"
 [node name="DemonPunchTimer" type="Timer" parent="."]
 
 [node name="PunchTimer" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 
 [node name="DemonHitBox" type="Area2D" parent="."]
@@ -128,7 +127,7 @@ shape = SubResource( 14 )
 one_shot = true
 
 [node name="FireTimer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 2.0
 one_shot = true
 
 [connection signal="area_entered" from="DemonHurtBox" to="." method="_on_DemonHurtBox_area_entered"]
