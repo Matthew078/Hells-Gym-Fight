@@ -39,11 +39,14 @@ func _physics_process(delta):
 func _punch():
 	$AnimatedSprite.animation = "punch"
 	$PlayerHitBox/CollisionShape2D.disabled = false
+	$PlayerHitBox.punching = true
+	$PlayerHitBox.kicking = false
 	
 func _kick():
 	$AnimatedSprite.animation = "kick"
 	$PlayerHitBox/CollisionShape2D.disabled = false
-	
+	$PlayerHitBox.kicking = true
+	$PlayerHitBox.punching = false
 
 func _process(delta):
 	
@@ -96,7 +99,11 @@ func _process(delta):
 
 func _on_PlayerHurtBox_area_entered(area):
 	if area.name == "DemonHitBox":
+		
+		if area.punching:
+			self.health -= 10
+		elif area.kicking:
+			self.health -= 20
 		$HumanHealthBar/HealthBar.value = health
-		self.health -= 10
 		print(health)
 		$KnockedTimer.start()

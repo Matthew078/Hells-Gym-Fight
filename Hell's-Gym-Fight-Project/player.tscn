@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (4).png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (6).png" type="Texture" id=6]
 [ext_resource path="res://HumanHealthBar.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637-1.png (1).png" type="Texture" id=8]
+[ext_resource path="res://PlayerHitBox.gd" type="Script" id=9]
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
@@ -140,6 +141,7 @@ one_shot = true
 
 [node name="PlayerHitBox" type="Area2D" parent="."]
 position = Vector2( 74, -15 )
+script = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitBox"]
 shape = SubResource( 15 )
