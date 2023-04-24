@@ -89,7 +89,7 @@ func _process(delta):
 		else:
 			$AnimatedSprite.animation = "standing"
 	#print(punch_hitbox.position)
-
+	 
 	if health <= 0:
 		hide()
 		
