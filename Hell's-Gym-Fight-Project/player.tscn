@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (4).png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -6,9 +6,10 @@
 [ext_resource path="res://art/PlayerAnimationSheet.png" type="Texture" id=4]
 [ext_resource path="res://sound/punch2.wav" type="AudioStream" id=5]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637 (6).png" type="Texture" id=6]
-[ext_resource path="res://HumanHealthBar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://humanhealthbar.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art/vector-pixel-art-fitness-man-isolated-cartoon-vector-pixel-art-fitness-man-124453637-1.png (1).png" type="Texture" id=8]
-[ext_resource path="res://PlayerHitBox.gd" type="Script" id=9]
+[ext_resource path="res://playerhitbox.gd" type="Script" id=9]
+[ext_resource path="res://sound/kick.wav" type="AudioStream" id=10]
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
@@ -120,7 +121,7 @@ scale = Vector2( 0.838912, 1.47682 )
 shape = SubResource( 1 )
 
 [node name="PunchTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 one_shot = true
 
 [node name="PunchSound" type="AudioStreamPlayer2D" parent="."]
@@ -131,12 +132,15 @@ volume_db = 4.0
 position = Vector2( 29, -33 )
 
 [node name="KickTimer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 2.0
 one_shot = true
 
 [node name="KickSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+volume_db = 3.0
 
 [node name="KnockedTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="PlayerHitBox" type="Area2D" parent="."]

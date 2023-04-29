@@ -2,7 +2,8 @@
 
 [ext_resource path="res://art/HealthBar (2).png" type="Texture" id=1]
 [ext_resource path="res://art/HealthBar.png" type="Texture" id=2]
-[ext_resource path="res://HumanHealthBar.gd" type="Script" id=3]
+[ext_resource path="res://humanhealthbar.gd" type="Script" id=3]
+
 
 [node name="HumanHealthBar" type="Control"]
 anchor_right = 1.0

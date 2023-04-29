@@ -7,11 +7,14 @@ extends Area2D
 
 var screen_size 
 
+var isKick = false
+var isPunch = false
+var leftright = false
 
 export var speed = 200
 var health = 100
-var demon_punch = preload('res://PunchHitBoxDemon.tscn').instance()
-var punch_hitbox = preload("res://PunchHitBox.tscn").instance()
+var demon_punch = preload('res://punchhitboxdemon.tscn').instance()
+var punch_hitbox = preload("res://punchhitbox.tscn").instance()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,38 +31,51 @@ func _process(delta):
 	if $KnockedTimer.is_stopped():
 		if Input.is_action_pressed("demon_move_right"):
 			velocity.x += 1
+			self.scale = Vector2(-1.96, 2.12) 
 		if Input.is_action_pressed("demon_move_left"):
 			velocity.x -= 1
-		if Input.is_action_pressed("demon_punch"):
+			self.scale = Vector2(1.96, 2.12) 
+		if Input.is_action_pressed("demon_punch") and not self.isPunch and not self.isKick:
+			self.isPunch = true
 			$PunchTimer.start()
-		
-		if Input.is_action_just_pressed("demon_fire"):
+			$Punch.play()
+		if Input.is_action_just_pressed("demon_fire") and not self.isPunch and not self.isKick:
+			self.isKick = true
 			$FireTimer.start()
+			$Fire.play()
 
 	velocity = velocity.normalized() * speed
 	
+	if $FireTimer.is_stopped():
+		self.isKick = false
 	
-		
+	if $PunchTimer.is_stopped():
+		self.isPunch = false
+	
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	
 	
 	if velocity.x != 0:
 		$AnimatedSprite.animation = "walking"
-		$AnimatedSprite.flip_v = false
+		#$AnimatedSprite.flip_v = false
 		# See the note below about boolean assignment.
-		$AnimatedSprite.flip_h = velocity.x > 0
+		#$AnimatedSprite.flip_h = velocity.x > 0
 	else:
 		$AnimatedSprite.animation = "standing"
 
 	if health <= 0:
 		hide()
-		get_tree().change_scene("res://PlayerWins.tscn")
+		get_tree().change_scene("res://playerwins.tscn")
 		
 	if not $PunchTimer.is_stopped():
 		self._punch()
 	elif not $KnockedTimer.is_stopped():
 		$AnimatedSprite.animation = "out"
+		if leftright:
+			position.x += 40 * delta
+		else:
+			position.x -= 40 * delta
 	elif not $FireTimer.is_stopped():
 		self._fire()
 	else:
@@ -86,5 +102,10 @@ func _on_DemonHurtBox_area_entered(area):
 		elif area.kicking:
 			self.health -= 20
 		$DemonHealthBar/HealthBar.value = health
-		print(health)	
+		#print(health)	
 		$KnockedTimer.start()
+		
+		if  area.get_parent().position.x - position.x < 0:
+			leftright = true
+		else:
+			leftright = false
